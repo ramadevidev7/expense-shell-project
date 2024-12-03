@@ -9,6 +9,9 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
+echo "please enter db password"
+read -s mysql_root_password
+
 VALIDATE(){
    if [ $1 -ne 0 ]
    then 
@@ -28,7 +31,6 @@ echo "you are a super user "
 fi
 
 
-
 dnf install mysql-server -y &>>$LOGFILE
 VALIDATE $? "installing mysql server"
 
@@ -37,9 +39,13 @@ systemctl enable mysqld &>>$LOGFILE
 VALIDATE $? "enablling mysql"
 
 systemctl start mysqld &>>$LOGFILE
-VALIDATE $? "starting mysql"
+VALIDATE $? "starting mysql server"
 
-mysql -h db.daws78s.online -uroot -p${mysql_root_password} &>>$LOGFILE
+# below code will be useful for idempotent nature
+
+mysql -h db.ramadevops78s.store -uroot -p${mysql_root_password} &>>$LOGFILE
+
+
 if [$? -ne 0 ]
 then 
 mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOGFILE
