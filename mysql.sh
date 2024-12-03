@@ -19,7 +19,7 @@ VALIDATE(){
    fi 
 }
 
-if [ USERID -ne 0 ]
+if [ $USERID -ne 0 ]
 then 
 echo "please run this script as a superuser "
 exit 1 
