@@ -25,7 +25,7 @@ echo "please run this script as a superuser "
 exit 1 
 else 
 echo "you are a super user "
-
+fi
 
 
 
