@@ -1,5 +1,15 @@
 #!/bin/bash
 
+set -e
+
+handle_error(){
+    echo "error occured at line number: $1 , error command : $2"
+}
+
+
+trap 'handle_error ${LINEND} "$BASH_COMMAND"' ERR  ## SYNTAX OF ERRORS IN SHELSCRIPT
+
+ 
 USERID=$(id -u)
 TIMESTAMP=$(date +%F-%H-%M-%S)
 SCRIPTNAME=$(echo $0 | cut -d "." -f1)    # $0  is fto find the script name 
@@ -9,8 +19,7 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-echo "please enter db password"
-read -s mysql_root_password
+
 
 VALIDATE(){
    if [ $1 -ne 0 ]
